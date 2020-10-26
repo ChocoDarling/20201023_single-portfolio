@@ -12,12 +12,15 @@
             <div id="user"></div>
             <div id="search"></div>
             <div id="hashtag-list">
-                {{template of hashtag}}
-                
-                <div class="hashtag">
-                    <div class="hashtag-icon"></div>
-                    <div class="hashtag-name"></div>
-                </div>
+                {{template of hashtagList}}
+                <fieldset>
+                    {{template of hashtag}}
+                    <div class="hashtag">
+                        <div class="hashtag-icon"></div>
+                        <div class="hashtag-name"></div>
+                    </div>
+                    {{template end}}
+                </fieldset>
                 {{template end}}
             </div>
         </div>
