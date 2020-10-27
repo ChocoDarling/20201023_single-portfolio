@@ -3,33 +3,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>main</title>
-    <link rel="stylesheet" href="../public/style.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="logic.js"></script>
 </head>
 <body>
-    <div class="wrap">
+    <div class="wrap" onclick="onLogin(false)">
         <div id="menu">
-            <div id="logo"></div>
-            <div id="user"></div>
-            <div id="search"></div>
-            <div id="hashtag-list">
-                {{template of hashtagList}}
-                <fieldset>
-                    {{template of hashtag}}
-                    <div class="hashtag">
-                        <div class="hashtag-icon"></div>
-                        <div class="hashtag-name"></div>
+            <div id="logo">
+                <img class="windows" src="/imgs/logo.png" alt="">
+                <img class="mobile" src="/imgs/toplogo.png" alt="">
+            </div>
+            <div id="login" onclick="stopParentEvent(event);">
+                {{  if user}}
+                <div></div>
+                {{ else user }}
+                <button id="login-btn-top" onclick="loginBtn(event)">Login</button>
+                <form id="login-box" action="/user" >
+                    <div class="input">
+                        <label for="login-email">E-Mail</label>
+                        <input id="login-email" type="text" name="email">
                     </div>
-                    {{template end}}
-                </fieldset>
-                {{template end}}
+                    <div class="input">
+                        <label for="login-pwd">Password</label>
+                        <input id="login-pwd" type="password" name="pwd">
+                    </div>
+                    <div class="btn">
+                        <button id="login-btn" type="submit">Login</button>
+                        <button id="join-btn">Join Us</button>
+                    </div>
+                </form>
+                {{end user}}
+            </div>
+            <div id="search">
+                <form action="/search">
+                    <div class="input">
+                        <input id="search-key" type="text" name="search" onfocus="onHashtag(true)" onblur="onHashtag(false)" placeholder="해시 검색">
+                        <button id="search-btn" type="submit">검색</button>
+                    </div>
+                </form>
+                <div id="hashtag-list">
+                    {{template of hashtagList}}
+                    <fieldset>
+                        <legend>temp</legend>
+                        {{template of hashtag}}
+                        <div class="hashtag">
+                            <div class="hashtag-icon"></div>
+                            <div class="hashtag-name"></div>
+                        </div>
+                        {{end hashtag}}
+                    </fieldset>
+                    {{end hashtagList}}
+                </div>
             </div>
         </div>
-        <div id="advertise">
-
-        </div>
         <div id="container">
-            <div id="products-list">
-                
+            <div id="advertise">
+                <div id="advertise-list">
+                    {{template of advertise}}
+                    <a class="advertise" href=""></a>
+                    {{end advertise}}
+                </div>
+                <div class="input">
+                    <div id="advertise-before">
+                        <a href=""></a>
+                    </div>
+                    <div id="advertise-list-btn">
+                        <div class="advertise-list-btn">
+                            1
+                        </div>
+                        <div class="advertise-list-btn">
+                            2
+                        </div>
+                        <div class="advertise-list-btn">
+                            3
+                        </div>
+                    </div>
+                    <div id="advertise-after">
+                        <a href=""></a>
+                    </div>
+                </div>
+            </div>
+            <div id="inner-contain">
+                <div id="products-list">
+                    {{template of product}}
+                    <a class="products" href="">
+                        <img src="" alt="">
+                    </a>
+                    {{end product}}
+                </div>
             </div>
         </div>
     </div>
