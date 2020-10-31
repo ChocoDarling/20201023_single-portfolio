@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %}
+            <div id="full-contain">
+                <div>
+                    email : {{user.email}}
+                </div>
+                <div>
+                    nick : {{user.nick}}
+                </div>
+                <div>
+                    name : {{user.name}}
+                </div>
+                <div>
+                    phoneNumber : {{user.phoneNumber}}
+                </div>
+                <div>
+                    score : {{user.score}}
+                </div>
+                <div>
+                    score : {{user.Comments}}
+                    {% for twit in user.Comments %}
+                        <div class="twit">
+                            <div class="twit-content">{{twit.content}}</div>
+                            <form action="/comment/del/{{twit.id}}">
+                                <button type="submit">x</button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+            </div>
+{% endblock %}

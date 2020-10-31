@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block content %}
+            <div id="full-contain">
+                <form id="test-form" action="/comment/add" method="POST" onsubmit="onSubmit()">
+                    <div id="input-area" class="comment" contenteditable="true" aria-placeholder="입력해보세요"></div>
+                    <div id="output-area" class="comment1" contenteditable="true">
+
+                    </div>
+                    <button type="submit">확인</button>
+                    <button type="button" onclick="checkInnerHTML()">아래확인</button>
+                </form>
+                <div id="temp-img" onclick="clickCheck(event, this)"></div>
+                <div id="test-div" onclick="clickCheck(event)" onmousedown="MDCheck(event)" onmouseup="MUCheck(event)">
+
+                </div>
+            </div>
+            <script>
+                function checkInnerHTML() {
+                    console.log(document.getElementById('input-area').className);
+                    console.log(document.getElementById('input-area').localName);
+                    console.log(document.getElementById('input-area').namespaceURI);
+                    // document.getElementById('input-area').innerHTML = 
+                    //     document.getElementById('input-area').innerHTML;
+                    // document.getElementById('output-area').innerHTML = 
+                    //     document.getElementById('input-area').textContent.replace('&lt;', '<').replace('&gt;', '>');
+                }
+                function checkOutput() {
+                    console.log(document.getElementById('output-area').textContent);
+                    console.log(document.getElementById('output-area').innerHTML);
+                    console.log(document.getElementById('output-area').innerText);
+                }
+                function clickCheck(e, elem) {
+                    console.log(e.offsetX, e.offsetY);
+                    console.log(elem);
+                    if (elem.classList.contains('on')) {
+                        [...elem.children].forEach(v => {
+                            v.remove();
+                        });
+                        elem.classList.remove('on');
+                    } else {
+                        for (let i = 0; i < 9; ++i) {
+                            const childElem = document.createElement('div');
+                            childElem.style.position = 'absolute';
+                            childElem.style.width = 10;
+                            childElem.style.height = 10;
+                            childElem.style.border = '1px solid black';
+                            childElem.style.backgroundColor = 'white';
+                            childElem.style.top = `calc(-5px + 50% * ${parseInt(i / 3)})`;
+                            childElem.style.left = `calc(-5px + 50% * ${parseInt(i % 3)})`;
+                            elem.appendChild(childElem);
+                        }
+                        elem.classList.add('on');
+                    }
+                }
+                
+                function MDCheck(e) {
+                    document.getElementById('test-div').onmousemove = moveMouse;
+                }
+
+                function MUCheck(e) {
+                    document.getElementById('test-div').onmousemove = '';
+                }
+
+                function moveMouse(e) {
+                    console.log(document.getElementById('test-div').offsetWidth, document.getElementById('test-div').offsetHeight);
+                    document.getElementById('test-div').style.width = 
+                        document.getElementById('test-div').offsetWidth + e.movementX;
+                    document.getElementById('test-div').style.height = 
+                        document.getElementById('test-div').offsetHeight + e.movementY;
+                }
+
+                function onSubmit() {
+                    const formData = document.getElementById('test-form');
+                    const datas = formData.getElementsByTagName('div');
+                    [...datas].forEach(v => {
+                        const tempInput = document.createElement('input');
+                        tempInput.name = v.classList[0];
+                        tempInput.value = v.innerHTML;
+                        formData.appendChild(tempInput);
+                    });
+                }
+            </script>
+{% endblock %}

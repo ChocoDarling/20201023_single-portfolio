@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %}
+            <div id="full-contain">
+                <form id="join-form" action="/auth/join" method="POST">
+                    <div class="input">
+                        <label for="join-email">E-mail</label>
+                        <input id="join-email" type="email" name="email">
+                    </div>
+                    <div class="input">
+                        <label for="join-password">password</label>
+                        <input id="join-password" type="password" name="password">
+                    </div>
+                    <div class="input">
+                        <label for="join-password-check">password check</label>
+                        <input id="join-password-check" type="password" name="passwordCheck">
+                    </div>
+                    <div class="input">
+                        <label for="join-nick">nick name</label>
+                        <input id="join-nick" type="text" name="nick">
+                    </div>
+                    <div class="input">
+                        <label for="join-name">full name</label>
+                        <input id="join-name" type="text" name="name">
+                    </div>
+                    <div class="input">
+                        <label for="join-phone">phone number</label>
+                        <input id="join-phone" type="number" name="phoneNumber">
+                    </div>
+                    <button class="join-btn" type="submit">join</button>
+                </form>
+            </div>
+{% endblock %}

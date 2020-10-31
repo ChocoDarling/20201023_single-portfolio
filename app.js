@@ -3,17 +3,39 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 const session = require('express-session');
 const path = require('path');
-const indexRouter = require('./routes');
-const app = express();
+const nunjucks = require('nunjucks');
+const cookieParser = require('cookie-parser');
+const passport = require('passport');
 
 dotenv.config();
+const indexRouter = require('./routes');
+const authRouter = require('./routes/auth');
+const saleRouter = require('./routes/sale');
+const commentRouter = require('./routes/comment');
+const { sequelize } = require('./models');
+const passportConfig = require('./passport');
+const app = express();
+passportConfig();
 
 app.set('port', process.env.PORT || 8001);
+app.set('view engine', 'html');
+nunjucks.configure('views', {
+    express: app,
+    watch: true,
+});
+sequelize.sync({ force : true })
+    .then(() => {
+        console.log('데이터 베이스 연결');
+    })
+    .catch((err) => {
+        console.error(err);
+    });
 
 app.use(morgan('dev'));
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended : false }));
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
     resave : false,
     saveUninitialized : false,
@@ -23,8 +45,14 @@ app.use(session({
         secure : false,
     },
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
+app.use('/auth', authRouter);
+app.use('/sale', saleRouter);
+app.use('/comment', commentRouter);
+
 
 app.use((req, res, next) => {
     const err = new Error(`${req.headers.host}${req.url} 페이지가 존제하지 않습니다.`);
@@ -33,7 +61,10 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    res.status(err.status).send(err.message).end();
+    res.locals.message = err.message;
+    res.locals.error = process.env.NODE_ENV !== 'production' ? err : { };
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 app.listen(app.get('port'), () => {

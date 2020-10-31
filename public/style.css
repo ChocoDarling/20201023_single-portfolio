@@ -9,6 +9,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    text-align: center;
 }
 
 body {
@@ -18,13 +19,22 @@ body {
 input {
     padding: 3px;
     outline: none;
+    border-radius: 4px;
+    padding: 5px;
 }
 
 button {
+    cursor: pointer;
     color: var(--main-text-color);
     border: 1px solid var(--main-border-color);
     border-radius: 5px;
     background-color: var(--main-bg-color);
+}
+
+svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
 }
 
 .wrap {
@@ -45,6 +55,7 @@ button {
     overflow-y: auto;
     color: var(--main-text-color);
     background-color: var(--main-bg-color);
+    text-align: center;
 }
 
 ::-webkit-scrollbar {
@@ -65,7 +76,6 @@ button {
 #logo {
     order: 10;
     width: 100%;
-    text-align: center;
 }
 
 #logo .windows {
@@ -89,11 +99,20 @@ button {
     width: 100%;
 }
 
+#login a {
+    padding: 2px;
+    border: 1px solid var(--main-border-color);
+    border-radius: 5px;
+    text-decoration: none;
+    color: var(--main-text-color);
+}
+
 .input {
     display: flex;
     width: 100%;
     padding: 5px;
     justify-content: space-between;
+    align-items: center;
 }
 
 .input label {
@@ -113,6 +132,10 @@ button {
     padding: 3px;
 }
 
+#login div.logged-in {
+    margin-bottom: 10px;
+}
+
 .btn {
     width: 100%;
     padding: 5px 10%;
@@ -124,6 +147,14 @@ button {
 .btn button {
     width: 40%;
     padding: 3px;
+}
+
+#login .btn .logged-in {
+    width: 30%;
+}
+
+#login .btn a {
+    width: 40%;
 }
 
 #login-btn-top {
@@ -258,6 +289,71 @@ button {
 
 } */
 
+#full-contain {
+    margin: auto;
+    width: 70%;
+}
+
+#join-form {
+    display: flex;
+    padding: 50px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+}
+
+#join-form .input {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#join-form .input label {
+    width: 13em;
+    margin-right: 20px;
+}
+
+#join-form .join-btn {
+    font-size: 1em;
+    width: 7em;
+    padding: 5px 0;
+}
+
+/* =============================================== */
+
+#input-area, #output-area, textarea {
+    min-height: 2em;
+    max-width: 100%;
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+#input-area img {
+    max-width: 100%;
+    width: 50%;
+}
+
+#test-div {
+    width: 500px;
+    height: 500px;
+    border: 1px solid red;
+}
+
+#test-form input {
+    display: none;
+}
+
+#temp-img {
+    position: relative;
+    background-image: url("/imgs/1604038587856.jpg");
+    width: 100px;
+    height: 100px;
+}
+
 @media all and (max-width:1366px) {
     .wrap {
         flex-direction: column;
@@ -293,6 +389,10 @@ button {
         position: relative;
         width: calc(100% / 4);
         order: 35;
+    }
+
+    #login div.logged-in {
+        display: none;
     }
 
     #login-btn-top {

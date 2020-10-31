@@ -1,0 +1,82 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/logic.js"></script>
+</head>
+<body>
+    <div class="wrap" onclick="outLogin()">
+        <div id="menu">
+            <a id="logo" href="/">
+                <img class="windows" src="/imgs/logo.png" alt="">
+                <img class="mobile" src="/imgs/toplogo.png" alt="">
+            </a>
+            <div id="login" onclick="stopParentEvent(event);">{% if user and user.id %}
+                <div class="logged-in">
+                    {{user.name}}님 어서오세요.
+                </div>{% else %}
+                <button id="login-btn-top" onclick="loginBtn(event)">Login</button>
+                <form id="login-box" action="/auth/login" method="POST">
+                    <div class="input">
+                        <label for="login-email">E-Mail</label>
+                        <input id="login-email" type="text" name="email" required autofocus>
+                    </div>
+                    <div class="input">
+                        <label for="login-pwd">Password</label>
+                        <input id="login-pwd" type="password" name="password" required>
+                    </div>{% endif %}
+                    <div class="btn">{% if user and user.id %}
+                        <a href="/profile" class="logged-in">    <!-- 내정보 -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+                                <path d="M24 17.99l-7.731-.001 2.731 4h-1.311l-2.736-4h-1.953l-2.736 4h-1.264l2.732-4h-2.95v-1h8.218v-1h3v1h3v-14h-17v.447h-1v-1.447h19v16zm-17.241-9c.649 0 1.293-.213 1.692-.436.755-.42 2.695-1.643 3.485-2.124.215-.13.496-.082.654.114l.009.01c.164.205.145.5-.043.68l-3.371 3.214c-.521.498-.822 1.183-.853 1.902-.095 2.207-.261 6.912-.332 8.834-.016.45-.386.806-.836.806h-.001c-.444 0-.786-.348-.836-.788-.111-.982-.329-3.279-.427-4.212-.04-.384-.279-.613-.584-.614-.304-.002-.523.226-.548.608-.062.921-.266 3.249-.342 4.221-.034.441-.397.785-.84.785h-.001c-.452 0-.823-.356-.842-.809-.097-2.34-.369-8.963-.369-8.963l-1.287 2.331c-.14.254-.445.364-.715.26l-.001-.001c-.228-.088-.371-.305-.371-.54l.022-.157 1.244-4.393c.122-.43.515-.727.963-.727h4.53zm7.241 2h5v-1h-5v1zm0-2h7v-1h-7v1zm-8.626-5c1.241 0 2.25 1.008 2.25 2.25s-1.009 2.25-2.25 2.25c-1.242 0-2.25-1.008-2.25-2.25s1.008-2.25 2.25-2.25zm8.626 3h7v-1h-7v1z"/>
+                            </svg>
+                        </a>
+                        <a href="/sale" class="logged-in">    <!-- 상품등록 -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+                                <path d="M12.628 21.412l5.969-5.97 1.458 3.71-12.34 4.848-4.808-12.238 9.721 9.65zm-1.276-21.412h-9.352v9.453l10.625 10.547 9.375-9.375-10.648-10.625zm4.025 9.476c-.415-.415-.865-.617-1.378-.617-.578 0-1.227.241-2.171.804-.682.41-1.118.584-1.456.584-.361 0-1.083-.408-.961-1.218.052-.345.25-.697.572-1.02.652-.651 1.544-.848 2.276-.106l.744-.744c-.476-.476-1.096-.792-1.761-.792-.566 0-1.125.227-1.663.677l-.626-.627-.698.699.653.652c-.569.826-.842 2.021.076 2.938 1.011 1.011 2.188.541 3.413-.232.6-.379 1.083-.563 1.475-.563.589 0 1.18.498 1.078 1.258-.052.386-.26.763-.621 1.122-.451.451-.904.679-1.347.679-.418 0-.747-.192-1.049-.462l-.739.739c.463.458 1.082.753 1.735.753.544 0 1.087-.201 1.612-.597l.54.538.697-.697-.52-.521c.743-.896 1.157-2.209.119-3.247zm-9.678-7.476c.938 0 1.699.761 1.699 1.699 0 .938-.761 1.699-1.699 1.699-.938 0-1.699-.761-1.699-1.699 0-.938.761-1.699 1.699-1.699z"/>
+                            </svg>
+                        </a>
+                        <a href="/auth/logout" class="logged-in"> <!-- 로그아웃 -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+                                <path d="M11 21h8v-2l1-1v4h-9v2l-10-3v-18l10-3v2h9v5l-1-1v-3h-8v18zm10.053-9l-3.293-3.293.707-.707 4.5 4.5-4.5 4.5-.707-.707 3.293-3.293h-9.053v-1h9.053z"/>
+                            </svg>
+                        </a>{% else %}
+                        <button id="login-btn"> <!-- 로그인 -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+                                <path d="M13 2v-2l10 3v18l-10 3v-2h-9v-7h1v6h8v-18h-8v7h-1v-8h9zm-2.947 10l-3.293-3.293.707-.707 4.5 4.5-4.5 4.5-.707-.707 3.293-3.293h-9.053v-1h9.053z"/>
+                            </svg>
+                        </button>
+                        <a href="/join" id="join-btn">    <!-- 회원가입 -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+                                <path d="M22.697 17.991c.487 1.694.954 3.318 1.254 4.369.033.118.049.236.049.35 0 .522-.32 1.005-.83 1.201l-.002.002c-.604.232-1.286-.013-1.599-.578-.694-1.253-1.866-3.304-2.47-4.357l.428.016c1.18 0 2.273-.371 3.17-1.003zm-4.215 6.002h-12.953l-.231-5.686s-1.901 3.195-2.867 4.937c-.313.565-.995.81-1.599.579l-.002-.003c-.51-.196-.83-.678-.83-1.201 0-.114.016-.232.049-.349.635-2.23 2.038-6.952 2.771-9.526.273-.959 1.152-1.619 2.154-1.619h9.582c-.344.717-.537 1.521-.537 2.369 0 2.751 2.027 5.033 4.67 5.437l-.207 5.062zm1.018-14.993c2.484 0 4.5 2.016 4.5 4.5s-2.016 4.5-4.5 4.5-4.5-2.016-4.5-4.5 2.016-4.5 4.5-4.5zm.5 2h-1v2h-2v1h2v2h1v-2h2v-1h-2v-2zm-7.994-11c2.777 0 5.031 2.243 5.031 5.006 0 2.763-2.254 5.006-5.031 5.006-2.777 0-5.031-2.243-5.031-5.006 0-2.763 2.254-5.006 5.031-5.006z"/>
+                            </svg>
+                        </a>{% endif %}
+                    </div>
+                </form>
+            </div>
+            <div id="search">
+                <form action="/search">
+                    <div class="input">
+                        <input id="search-key" type="text" name="search" onfocus="onHashtag(true)" onblur="onHashtag(false)" placeholder="해시 검색">
+                        <button id="search-btn" type="submit">검색</button>
+                    </div>
+                </form>
+                <div id="hashtag-list">{% for hashtagList in hashtagLists %}
+                    <fieldset>
+                        <legend>{{hashtagList.name}}</legend>{% for hashtag in hashtagList.list %}
+                        <div class="hashtag">
+                            <div class="hashtag-icon"></div>
+                            <div class="hashtag-name">{{hashtag.name}}</div>
+                        </div>{% endfor %}
+                    </fieldset>{% endfor %}
+                </div>
+            </div>
+        </div>
+        <div id="container">{% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

@@ -25,12 +25,33 @@ function onHashtag(isFocus) {
     }
 }
 
-function onLogin(isLogin) {
+function outLogin() {
     if (innerWidth > 1366) return;
+    if (!document.getElementById('login-box')) return;
     const tempElemClass = document.getElementById('login-box').classList;
-    if (isLogin) {
-        tempElemClass.add('on');
-    } else {
-        tempElemClass.remove('on');
-    }
+    const tempElemBtn = document.getElementById('login-btn-top');
+    tempElemBtn.innerHTML = 'Login';
+    tempElemClass.remove('on');
 }
+
+function joinBtn() {
+    location.href += 'join';
+}
+
+window.onload = () => {
+    let tempParam = new URL(location.href).searchParams.get('joinError');
+    switch (tempParam) {
+        case 'idexist':
+            alert('이미 존재하는 이메일입니다.');
+            break;
+    
+        case 'passwordDif':
+            alert('비밀번호를 확인해주세요.');
+            break;
+    
+        default:
+            if(new URL(location.href).searchParams.get('loginError'))
+                alert(new URL(location.href).searchParams.get('loginError'));
+            break;
+    }
+};
