@@ -3,8 +3,12 @@ const Sequelize = require('sequelize');
 module.exports = class Comment extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
+            userName : {
+                type : Sequelize.STRING(100),
+                allowNull : false,
+            },
             content : {
-                type : Sequelize.STRING(140),
+                type : Sequelize.STRING(),
                 allowNull : false,
             },
             score : {
@@ -23,9 +27,7 @@ module.exports = class Comment extends Sequelize.Model {
         });
     }
     static associate(db) {
-        db.Comment.belongsTo(db.User);
-        db.Comment.belongsTo(db.Sale);
-        // db.Comment.belongsTo(db.User, { foreignKey: 'commenterId', targetKey: 'id' });
-        // db.Comment.belongsTo(db.Sale, { foreignKey: 'productId', targetKey: 'id' });
+        db.Comment.belongsTo(db.User, { foreignKey : 'UserId', as : 'User' });
+        db.Comment.belongsTo(db.Sale, { foreignKey : 'SaleId', as : 'Sale' });
     }
 };

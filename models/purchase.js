@@ -3,13 +3,21 @@ const Sequelize = require('sequelize');
 module.exports = class Purchase extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
-            count : {
+            userName : {
                 type : Sequelize.STRING(100),
                 allowNull : false,
             },
-            price : {
-                type : Sequelize.STRING(100),
+            count : {
+                type : Sequelize.INTEGER(),
                 allowNull : false,
+            },
+            price : {
+                type : Sequelize.STRING(),
+                allowNull : false,
+            },
+            CommentId : {
+                type : Sequelize.INTEGER(),
+                defaultValue : 0,
             },
         }, {
             sequelize,
@@ -23,13 +31,7 @@ module.exports = class Purchase extends Sequelize.Model {
         });
     }
     static associate(db) {
-        db.Purchase.belongsTo(db.User);
-        // db.Purchase.hasOne(db.Sale, { as : 'Sale' });
-        db.Purchase.belongsToMany(db.Sale, {
-            foreignKey : 'PurchaseId',
-            as : 'Sale',
-            through : 'Trade',
-        });
-        // db.Sale.belongsTo(db.User);
+        db.Purchase.belongsTo(db.User, { foreignKey : 'UserId' , as : 'User' });
+        db.Purchase.belongsTo(db.Sale, { foreignKey : 'SaleId', as : 'Sale' });
     }
 };

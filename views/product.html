@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block content %}
+            <div id="full-contain">
+                <div id="{{product.name}}" class="product">
+                    <div class="product-div">
+                        <div class="product-name">Name : {{product.name}}</div>
+                        <div class="product-count">Number : {{product.count - product.saleCount}}</div>
+                        <div class="product-price">Price : {{product.price}}</div>
+                    </div>
+                    <div class="product-information">{{product.information}}</div>
+                    <script>
+                        document
+                            .getElementById('{{product.name}}')
+                            .getElementsByClassName('product-information')[0]
+                            .innerHTML = 
+                            document
+                                .getElementById('{{product.name}}')
+                                .getElementsByClassName('product-information')[0]
+                                .textContent;
+                    </script>
+                </div>{% if product.count - product.saleCount %}
+                <form id="purchase-form" action="/purchase/add/{{product.id}}" method="POST">
+                    <div class="input">
+                        <label for="purchase-count">count</label>
+                        <input id="purchase-count" type="number" max="{{product.count - product.saleCount}}" name="count">
+                    </div>
+                    <button id="purchase-btn">구매</button>
+                </form>{% endif %}{% if user and user.id %}{% for purchase in user.Purchases %}{% if purchase.SaleId === product.id and purchase.CommentId === 0 %}
+                <form id="comment-form" action="/comment/add/{{product.id}}" method="POST">
+                    <input type="text" name="purchaseId" value="{{purchase.id}}" style="display: none;">
+                    <div class="input">
+                        <label for="comment-content">comment</label>
+                        <input id="comment-content" type="text" name="content">
+                    </div>
+                    <div class="input">
+                        <label for="comment-score">score</label>
+                        <input id="comment-score" type="number" min="0" max="5" name="score">
+                    </div>
+                    <button type="submit">submit</button>
+                </form>{% endif %}{% endfor %}{% endif %}
+                <div id="comment-list">{% for comment in product.Comments %}
+                    <div id="{{comment.User.name}}-{{comment.createdAt}}" class="comment">
+                        <div class="comment-user-name">{{comment.userName}}</div>
+                        <div class="comment-score">{{comment.score}}</div>
+                        <div class="comment-content">{{comment.content}}</div>
+                        <script>
+                            document
+                                .getElementById('{{comment.User.name}}-{{comment.createdAt}}')
+                                .getElementsByClassName('comment-content')[0]
+                                .innerHTML = 
+                                document
+                                    .getElementById('{{comment.User.name}}-{{comment.createdAt}}')
+                                    .getElementsByClassName('comment-content')[0]
+                                    .textContent;
+                        </script>{% if user and user.id and user.id === comment.UserId %}
+                        <form action="/comment/del/{{comment.id}}">
+                            <button type="submit">x</button>
+                        </form>{% endif %}
+                    </div>{% endfor %}
+                </div>
+            </div>
+            <script>
+                // function isOver(e) {
+                //     if(parseInt(document.getElementsByClassName('product-count')[0].innerHTML) < document.getElementById('purchase-count').value) {
+                //         alert('물품 개수를 초과하였습니다.');
+                //         document.getElementById('purchase-count').value = '';
+                //         stopParentEvent(e);
+                //     }
+                // }
+            </script>
+{% endblock %}

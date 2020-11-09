@@ -2,32 +2,61 @@
 
 {% block content %}
             <div id="full-contain">
-                <div>
-                    email : {{user.email}}
-                </div>
-                <div>
-                    nick : {{user.nick}}
-                </div>
-                <div>
-                    name : {{user.name}}
-                </div>
-                <div>
-                    phoneNumber : {{user.phoneNumber}}
-                </div>
-                <div>
-                    score : {{user.score}}
-                </div>
-                <div>
-                    score : {{user.Comments}}
-                    {% for twit in user.Comments %}
-                        <div class="twit">
-                            <div class="twit-content">{{twit.content}}</div>
-                            <form action="/comment/del/{{twit.id}}">
+                <div id="main-information">
+                    <div>email : {{user.email}}</div>
+                    <div>nick : {{user.nick}}</div>
+                    <div>name : {{user.name}}</div>
+                    <div>phoneNumber : {{user.phoneNumber}}</div>
+                    <div>score : {{user.score / 100}}</div>{% if user.Sales %}
+                    <div>income : {{user.SalesFull}}</div>{% endif %}{% if user.Purchases %}
+                    <div>outcome : {{user.PurchasesFull}}</div>{% endif %}
+                </div>{% if user.Sales.length %}
+                <fieldset id="sale-list">
+                    <legend>Sales</legend>{% for sale in user.Sales %}
+                    <div id="{{sale.name}}-{{sale.createdAt}}" class="sale">
+                        <a href="/product/{{sale.id}}">
+                            <div class="sale-name">Name : {{sale.name}}</div>
+                            <div class="sale-count">Remaining Count : {{sale.count - sale.saleCount}}</div>
+                            <div class="sale-count">Number of Saled : {{sale.saleCount}}</div>
+                            <div class="sale-price">Price : {{sale.price}}</div>
+                            <div class="sale-information">Information : {{sale.information}}</div>
+                            <form action="/sale/del/{{sale.id}}">
                                 <button type="submit">x</button>
                             </form>
-                        </div>
-                    {% endfor %}
-                </div>
-                
+                        </a>
+                        <script>
+                            document
+                                .getElementById('{{sale.name}}-{{sale.createdAt}}')
+                                .getElementsByClassName('sale-information')[0]
+                                .innerHTML = 
+                                document
+                                    .getElementById('{{sale.name}}-{{sale.createdAt}}')
+                                    .getElementsByClassName('sale-information')[0]
+                                    .textContent;
+                        </script>
+                    </div>{% endfor %}
+                </fieldset>{% endif %}{% if user.Purchases.length %}
+                <fieldset  id="purchase-list">
+                    <legend>Purchases</legend>{% for purchase in user.Purchases %}
+                    <div id="{{purchase.Sale.name}}-{{purchase.createdAt}}" class="purchase">
+                        <a href="/product/{{purchase.SaleId}}">
+                            <div class="purchase-name">Name : {{purchase.Sale.name}}</div>
+                            <div class="purchase-count">Number : {{purchase.count}}</div>
+                            <div class="purchase-price">Price : {{purchase.price}}</div>
+                            <form action="/purchase/del/{{purchase.id}}">
+                                <button type="submit">x</button>
+                            </form>{% for comment in user.Comments %}{% if comment.SaleId === purchase.SaleId %}
+                            <fieldset class="profile-comment">
+                                <legend>Comment</legend>
+                                <div class="comment-score">{{comment.score}}</div>
+                                <div class="comment-content">{{comment.content}}</div>
+                                <form action="/comment/del/{{comment.id}}">
+                                    <button type="submit">x</button>
+                                </form>
+                            </fieldset>
+                            {% endif %}{% endfor %}
+                        </a>
+                    </div>{% endfor %}
+                </fieldset>{% endif %}
             </div>
 {% endblock %}

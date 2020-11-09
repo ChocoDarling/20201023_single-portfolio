@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
     <link rel="stylesheet" href="/style.css">
+    <script src="https://unpkg.com/axios@0.20.0/dist/axios.min.js"></script>
     <script src="/logic.js"></script>
 </head>
 <body>
@@ -13,17 +14,24 @@
                 <img class="windows" src="/imgs/logo.png" alt="">
                 <img class="mobile" src="/imgs/toplogo.png" alt="">
             </a>
-            <div id="login" onclick="stopParentEvent(event);">{% if user and user.id %}
+            <div id="login">{% if user and user.id %}
                 <div class="logged-in">
                     {{user.name}}님 어서오세요.
                 </div>{% else %}
-                <button id="login-btn-top" onclick="loginBtn(event)">Login</button>
+                <button id="login-top-btn" onclick="loginBtn(event)">
+                    <svg id="login-top-btn-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 21l-12-18h24z"/>
+                    </svg>
+                    <svg id="login-top-btn-img-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 3l12 18h-24z"/>
+                    </svg>
+                </button>
                 <form id="login-box" action="/auth/login" method="POST">
-                    <div class="input">
+                    <div class="input" onclick="stopParentEvent(event)">
                         <label for="login-email">E-Mail</label>
                         <input id="login-email" type="text" name="email" required autofocus>
                     </div>
-                    <div class="input">
+                    <div class="input" onclick="stopParentEvent(event)">
                         <label for="login-pwd">Password</label>
                         <input id="login-pwd" type="password" name="password" required>
                     </div>{% endif %}
@@ -40,35 +48,31 @@
                         </a>
                         <a href="/auth/logout" class="logged-in"> <!-- 로그아웃 -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
-                                <path d="M11 21h8v-2l1-1v4h-9v2l-10-3v-18l10-3v2h9v5l-1-1v-3h-8v18zm10.053-9l-3.293-3.293.707-.707 4.5 4.5-4.5 4.5-.707-.707 3.293-3.293h-9.053v-1h9.053z"/>
+                                <path d="M16 2v7h-2v-5h-12v16h12v-5h2v7h-16v-20h16zm2 9v-4l6 5-6 5v-4h-10v-2h10z"/>
                             </svg>
                         </a>{% else %}
                         <button id="login-btn"> <!-- 로그인 -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
-                                <path d="M13 2v-2l10 3v18l-10 3v-2h-9v-7h1v6h8v-18h-8v7h-1v-8h9zm-2.947 10l-3.293-3.293.707-.707 4.5 4.5-4.5 4.5-.707-.707 3.293-3.293h-9.053v-1h9.053z"/>
+                                <path d="M24 22h-20v-7h2v5h16v-16h-16v5h-2v-7h20v20zm-13-11v-4l6 5-6 5v-4h-11v-2h11z"/>
                             </svg>
                         </button>
                         <a href="/join" id="join-btn">    <!-- 회원가입 -->
-                            <svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
-                                <path d="M22.697 17.991c.487 1.694.954 3.318 1.254 4.369.033.118.049.236.049.35 0 .522-.32 1.005-.83 1.201l-.002.002c-.604.232-1.286-.013-1.599-.578-.694-1.253-1.866-3.304-2.47-4.357l.428.016c1.18 0 2.273-.371 3.17-1.003zm-4.215 6.002h-12.953l-.231-5.686s-1.901 3.195-2.867 4.937c-.313.565-.995.81-1.599.579l-.002-.003c-.51-.196-.83-.678-.83-1.201 0-.114.016-.232.049-.349.635-2.23 2.038-6.952 2.771-9.526.273-.959 1.152-1.619 2.154-1.619h9.582c-.344.717-.537 1.521-.537 2.369 0 2.751 2.027 5.033 4.67 5.437l-.207 5.062zm1.018-14.993c2.484 0 4.5 2.016 4.5 4.5s-2.016 4.5-4.5 4.5-4.5-2.016-4.5-4.5 2.016-4.5 4.5-4.5zm.5 2h-1v2h-2v1h2v2h1v-2h2v-1h-2v-2zm-7.994-11c2.777 0 5.031 2.243 5.031 5.006 0 2.763-2.254 5.006-5.031 5.006-2.777 0-5.031-2.243-5.031-5.006 0-2.763 2.254-5.006 5.031-5.006z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M10.644 17.08c2.866-.662 4.539-1.241 3.246-3.682-3.932-7.427-1.042-11.398 3.111-11.398 4.235 0 7.054 4.124 3.11 11.398-1.332 2.455.437 3.034 3.242 3.682 2.483.574 2.647 1.787 2.647 3.889v1.031h-18c0-2.745-.22-4.258 2.644-4.92zm-12.644 4.92h7.809c-.035-8.177 3.436-5.313 3.436-11.127 0-2.511-1.639-3.873-3.748-3.873-3.115 0-5.282 2.979-2.333 8.549.969 1.83-1.031 2.265-3.181 2.761-1.862.43-1.983 1.34-1.983 2.917v.773z"/>
                             </svg>
                         </a>{% endif %}
                     </div>
                 </form>
             </div>
-            <div id="search">
-                <form action="/search">
-                    <div class="input">
-                        <input id="search-key" type="text" name="search" onfocus="onHashtag(true)" onblur="onHashtag(false)" placeholder="해시 검색">
-                        <button id="search-btn" type="submit">검색</button>
-                    </div>
-                </form>
-                <div id="hashtag-list">{% for hashtagList in hashtagLists %}
+            <div id="search" onclick="stopParentEvent(event)">
+                <button id="search-btn" onclick="onHashtag(true)" type="submit">해시 목록</button>
+                <div id="hashtag-list">
+                    {% for hashtagList in hashtagLists %}
                     <fieldset>
                         <legend>{{hashtagList.name}}</legend>{% for hashtag in hashtagList.list %}
-                        <div class="hashtag">
-                            <div class="hashtag-icon"></div>
-                            <div class="hashtag-name">{{hashtag.name}}</div>
+                        <div class="hashtag" onclick="clickHashtag(event, '{{hashtag.name}}')">
+                            <div class="hashtag-icon">#</div>
+                            <div class="hashtag-name">{{hashtag.name.slice(1)}}</div>
                         </div>{% endfor %}
                     </fieldset>{% endfor %}
                 </div>
@@ -78,5 +82,14 @@
             {% endblock %}
         </div>
     </div>
+    <div id="template" style="display: none;">
+        <div class="hashtag" contenteditable="false">
+            <div class="hashtag-icon">#</div>
+            <div class="hashtag-name"></div>
+        </div>
+    </div>
+
+    <script>
+    </script>
 </body>
 </html>

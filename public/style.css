@@ -10,6 +10,15 @@
     padding: 0;
     box-sizing: border-box;
     text-align: center;
+    text-decoration: none;
+}
+
+*.template {
+    display: none;
+}
+
+p {
+    text-align: left;
 }
 
 body {
@@ -24,6 +33,8 @@ input {
 }
 
 button {
+    font-size: 1em;
+    padding: 5px 15px;
     cursor: pointer;
     color: var(--main-text-color);
     border: 1px solid var(--main-border-color);
@@ -96,6 +107,7 @@ svg {
 
 #login-box {
     display: inline-block;
+    min-width: 200px;
     width: 100%;
 }
 
@@ -157,7 +169,7 @@ svg {
     width: 40%;
 }
 
-#login-btn-top {
+#login-top-btn {
     display: none;
     float: right;
     width: 100px;
@@ -169,10 +181,20 @@ svg {
     border-radius: 5px;
 }
 
+#login-top-btn #login-top-btn-img { display: block; }
+#login-top-btn #login-top-btn-img-on { display: none; }
+#login-top-btn.on #login-top-btn-img { display: none; }
+#login-top-btn.on #login-top-btn-img-on { display: block; }
+
 #search {
     order: 30;
     margin-top: 10px;
 }
+
+#search-btn {
+    display: none;
+}
+
 
 #hashtag-list {
     order: 40;
@@ -191,8 +213,8 @@ svg {
 }
 
 .hashtag {
-    display: flex;
-    float: left;
+    cursor: pointer;
+    display: inline-flex;
     margin: 0.2em 0.3em;
     border: 1px solid var(--main-border-color);
     border-radius: 5px;
@@ -216,7 +238,7 @@ svg {
     width: 100%;
     display: flex;
     flex-direction: row;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 #advertise {
@@ -238,6 +260,17 @@ svg {
     background-color: lightgray;
 }
 
+.advertise {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.advertise img {
+    width: 100%;
+}
+
 #advertise .input {
     position: relative;
     display: flex;
@@ -255,6 +288,11 @@ svg {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+#advertise-before img, #advertise-after img {
+    width: 100%;
+    height: 100%;
 }
 
 #advertise-list-btn {
@@ -277,21 +315,36 @@ svg {
 #advertise-before a, #advertise-after a{
     width: 50px;
     height: 50px;
-    border: 1px solid black;
 }
 
 #products-list {
     display: flex;
-    flex-direction: column;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
-/* 
-.products {
 
-} */
+.sale, .purchase {
+    width: 40%;
+    max-height: 200px;
+    padding: 10px;
+    margin: 4%;
+    overflow: hidden;
+    border: 1px solid black;
+    text-decoration: none;
+    color: black;
+    border-radius: 10px;
+}
+
+.sale img, .purchase img {
+    max-width: 100%;
+}
 
 #full-contain {
     margin: auto;
     width: 70%;
+    padding-top: 10px;
 }
 
 #join-form {
@@ -316,42 +369,156 @@ svg {
     margin-right: 20px;
 }
 
-#join-form .join-btn {
-    font-size: 1em;
+.join-btn {
     width: 7em;
-    padding: 5px 0;
 }
 
-/* =============================================== */
+#main-information {
+    float: left;
+    width: calc(100% / 3);
+}
 
-#input-area, #output-area, textarea {
-    min-height: 2em;
-    max-width: 100%;
+#main-information div {
+    text-align: left;
+}
+
+#sale-list, #purchase-list {
+    float: left;
+    width: calc(100% / 3);
+}
+
+#sale-list .sale, #purchase-list .purchase {
+    width: 90%;
+}
+
+#sale-box {
+    display: flex;
+    margin: auto;
+    width: 500px;
+    flex-direction: column;
+    align-items: center;
+}
+
+#sale-box .input {
+    width: 400px;
+    text-align: center;
+}
+
+#sale-box .input label {
+    width: 100px;
+}
+
+#sale-box .input input {
+    width: 200px;
+    margin: 0 10px;
+}
+
+#sale-box div#sale-information {
+    width: 500px;
+    height: 600px;
     padding: 10px;
-    border: 1px solid gray;
+    border: 1px solid black;
+    text-align: left;
+    overflow-y: auto;
+}
+
+#sale-box div#sale-information div {
+    text-align: left;
+}
+
+#sale-box div#sale-information:empty:before {
+    content: "정보를 입력해주세요.";
+}
+
+#sale-box div#sale-information img {
+    max-width: 100%;
+}
+
+#sale-box div#sale-information p {
+    padding: 0 0.5em;
+}
+
+#sale-box #sale-hashtag {
+    display: none;
+    width: 500px;
+    min-height: 1em;
+    border: 1px solid black;
+}
+
+.sale a, .purchase a {
+    text-decoration: none;
+    color: black;
+}
+
+.product {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.product-div {
+    width: 30%;
+}
+
+.product-information {
+    padding: 10px;
+    width: 65%;
+    border: 1px solid black;
+}
+
+.product img {
+    max-width: 90%;
+}
+
+#comment-form {
+    margin-top: 20px;
+}
+
+#comment-list {
+    margin-top: 20px;
+}
+
+.comment {
+    margin-top: 10px;
+    padding: 5px;
+    display: flex;
+    width: 100%;
+    min-height: 20px;
+    justify-content: space-between;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.profile-comment {
+    width: 100%;
+    padding: 5px;
     border-radius: 5px;
 }
 
-#input-area img {
-    max-width: 100%;
-    width: 50%;
+.profile-comment legend {
+    text-align: left;
+    padding: 5px;
 }
 
-#test-div {
-    width: 500px;
-    height: 500px;
-    border: 1px solid red;
+.comment-user-name {
+    float: left;
+    width: 20%;
 }
 
-#test-form input {
-    display: none;
+.comment-score {
+    float: left;
+    width: 10%;
+    margin-right: 10px;
 }
 
-#temp-img {
-    position: relative;
-    background-image: url("/imgs/1604038587856.jpg");
-    width: 100px;
-    height: 100px;
+.comment-content {
+    float: left;
+    max-width: 50%;
+    word-wrap: break-word;
+}
+
+.profile-comment form {
+    float: right;
 }
 
 @media all and (max-width:1366px) {
@@ -359,6 +526,10 @@ svg {
         flex-direction: column;
     }
     
+    #container {
+        height: 100%;
+    }
+
     #menu {
         min-width: 100%;
         height: 60px;
@@ -395,14 +566,16 @@ svg {
         display: none;
     }
 
-    #login-btn-top {
-        display: block;
+    #login-top-btn {
+        display: flex;
+        justify-content: center;
     }
     
     #login-box {
         display: none;
         position: absolute;
         top: 50px;
+        right: 0;
         width: 100%;
         padding: 10px;
         border: 1px solid var(--main-border-color);
@@ -417,6 +590,11 @@ svg {
         position: relative;
         width: calc(100% / 2);
         padding: 0 20px;
+        margin: auto;
+    }
+
+    #search-btn {
+        display: block;
         margin: auto;
     }
 
@@ -435,20 +613,47 @@ svg {
         display: inline-block;
     }
 
+    #advertise {
+        height: 100%;
+    }
+    
+    .comment-content {
+        max-width: 60%;
+    }
+
 }
 
-@media all and (max-width:720px) {
+@media all and (max-width:900px) {
     #container {
-        flex-direction: column;
+        display: block;
         overflow-y: auto;
     }
 
     #advertise {
+        display: inline-block;
         width: 100%;
     }
     
     #inner-contain {
+        overflow: unset;
         width: 100%;
     }
     
+    #main-information {
+        float: left;
+        width: 100%;
+    }
+
+    #main-information div {
+        text-align: left;
+    }
+
+    #sale-list, #purchase-list {
+        float: left;
+        width: 100%;
+    }
+
+    #sale-list .sale, #purchase-list .purchase {
+        width: 90%;
+    }
 }

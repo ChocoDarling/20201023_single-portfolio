@@ -5,27 +5,27 @@
                 <form id="join-form" action="/auth/join" method="POST">
                     <div class="input">
                         <label for="join-email">E-mail</label>
-                        <input id="join-email" type="email" name="email">
+                        <input id="join-email" type="email" name="email" required>
                     </div>
                     <div class="input">
                         <label for="join-password">password</label>
-                        <input id="join-password" type="password" name="password">
+                        <input id="join-password" type="password" name="password" required>
                     </div>
                     <div class="input">
                         <label for="join-password-check">password check</label>
-                        <input id="join-password-check" type="password" name="passwordCheck">
+                        <input id="join-password-check" type="password" name="passwordCheck" required>
                     </div>
                     <div class="input">
                         <label for="join-nick">nick name</label>
-                        <input id="join-nick" type="text" name="nick">
+                        <input id="join-nick" type="text" name="nick" required>
                     </div>
                     <div class="input">
                         <label for="join-name">full name</label>
-                        <input id="join-name" type="text" name="name">
+                        <input id="join-name" type="text" name="name" required>
                     </div>
                     <div class="input">
                         <label for="join-phone">phone number</label>
-                        <input id="join-phone" type="number" name="phoneNumber">
+                        <input id="join-phone" type="number" name="phoneNumber" required>
                     </div>
                     <button class="join-btn" type="submit">join</button>
                 </form>

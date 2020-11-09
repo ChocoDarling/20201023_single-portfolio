@@ -8,15 +8,20 @@ module.exports = class Sale extends Sequelize.Model {
                 allowNull : false,
             },
             count : {
-                type : Sequelize.STRING(100),
+                type : Sequelize.INTEGER(),
                 allowNull : false,
             },
+            saleCount : {
+                type : Sequelize.INTEGER(),
+                allowNull : false,
+                defaultValue : 0,
+            },
             price : {
-                type : Sequelize.STRING(100),
+                type : Sequelize.INTEGER(),
                 allowNull : false,
             },
             information : {
-                type : Sequelize.STRING(100),
+                type : Sequelize.TEXT,
                 allowNull : false,
             },
         }, {
@@ -31,14 +36,13 @@ module.exports = class Sale extends Sequelize.Model {
         });
     }
     static associate(db) {
-        db.Sale.belongsTo(db.User);
-        // db.Sale.belongsTo(db.Purchase);
-        db.Sale.hasMany(db.Comment, { as : 'Comments' });
-        db.Sale.belongsTo(db.Purchase, {
+        db.Sale.belongsTo(db.User, { foreignKey : 'UserId', as : 'User' });
+        db.Sale.belongsToMany(db.Hashtag, { 
             foreignKey : 'SaleId',
-            as : 'Purchases',
-            through : 'Trade',
+            as : 'Hashtags',
+            through : 'HashtagsOfSales',
         });
-        // db.Sale.belongsTo(db.User);
+        db.Sale.hasMany(db.Comment, { foreignKey : 'SaleId', as : 'Comments' });
+        db.Sale.hasMany(db.Purchase, { foreignKey : 'SaleId', as : 'Purchases', });
     }
 };

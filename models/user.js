@@ -51,15 +51,8 @@ module.exports = class User extends Sequelize.Model {
         });
     }
     static associate(db) {
-        db.User.hasMany(db.Sale, { as : 'Sales' });
-        db.User.hasMany(db.Comment, { 
-            as : 'Comments',
-        });
-        db.User.hasMany(db.Purchase, { as : 'Purchases' });
-        // db.User.belongsToMany(db.User, {
-        //     foreignKey : 'followerId',
-        //     as : 'Followings',
-        //     through : 'Follow',
-        // });
+        db.User.hasMany(db.Sale, { foreignKey : 'UserId', as : 'Sales' });
+        db.User.hasMany(db.Comment, { foreignKey : 'UserId', as : 'Comments', });
+        db.User.hasMany(db.Purchase, { foreignKey : 'UserId', as : 'Purchases' });
     }
 };

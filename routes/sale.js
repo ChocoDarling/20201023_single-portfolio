@@ -1,27 +1,44 @@
 const router = require('express').Router();
-const path = require('path');
 const { isLoggedIn, isNotLoggedIn } = require('./middleware');
+const { Sale, Hashtag } = require('../models');
 
-router.use(async (req, res, next) => {
-    res.locals.user = req.user;
-    res.locals.hashtagLists = [];
-    res.locals.advertiseList = [];
-    res.locals.productList = [];
-    console.log(req.user ? await req.user.Comments : '');
-    next();
+router.post('/add', isLoggedIn, async (req, res) => {
+    const sale = await Sale.create({
+        name : req.body.name,
+        count : req.body.count,
+        price : req.body.price,
+        information : req.body.information,
+    });
+    if (req.body.hashtags) {
+        req.body.hashtags.split(' ').forEach(async v => {
+            let hashtag = await Hashtag.findOne({
+                where : { name : v },
+            });
+            if (!hashtag) {
+                hashtag = await Hashtag.create({
+                    name : v,
+                });
+            }
+            await hashtag.addSale(sale.id);
+        })
+    }
+    sale.setUser(parseInt(req.user.id, 10));
+
+    res.redirect('/');
 });
 
-router.post('/product', isLoggedIn, (req, res) => {
-    console.log('req.body : =====================================================================');
-    console.log(req.body.comment);
-    console.log(req.body);
-    console.log(res.locals.user.id);
-    
-    res.redirect('/sale');
+router.get('/del/:id', isLoggedIn, async (req, res) => {
+    try {
+        await Sale.destroy({ where : { id : parseInt(req.params.id, 10) } });
+        res.redirect('/profile');
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
 });
 
 router.get('/', isLoggedIn, (req, res) => {
-    res.render('sale-temp');
+    res.render('sale');
 });
 
 module.exports = router;
