@@ -152,7 +152,7 @@ async function clickHashtag(e, searchKey) {
         searchKey,
       })
     ).data;
-    console.log(sales);
+    parentElem.innerHTML = "";
     sales.forEach((v) => {
       const tempElem = getTemplate("item-list");
       tempElem.removeAttribute("id");
