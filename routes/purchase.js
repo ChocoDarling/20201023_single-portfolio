@@ -31,6 +31,7 @@ router.get("/", isLoggedIn, async (req, res, next) => {
 
 router.post("/add/:id", isLoggedIn, async (req, res, next) => {
   try {
+    if (req.body.count === 0) return;
     const sale = await Sale.findOne({ where: { id: req.params.id } });
     const purchase = await Purchase.create({
       name: sale.name,
