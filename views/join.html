@@ -1,33 +1,39 @@
-{% extends "layout.html" %}
-
-{% block content %}
-            <div id="full-contain">
-                <form id="join-form" action="/auth/join" method="POST">
-                    <div class="input">
-                        <label for="join-email">E-mail</label>
-                        <input id="join-email" type="email" name="email" required>
-                    </div>
-                    <div class="input">
-                        <label for="join-password">password</label>
-                        <input id="join-password" type="password" name="password" required>
-                    </div>
-                    <div class="input">
-                        <label for="join-password-check">password check</label>
-                        <input id="join-password-check" type="password" name="passwordCheck" required>
-                    </div>
-                    <div class="input">
-                        <label for="join-nick">nick name</label>
-                        <input id="join-nick" type="text" name="nick" required>
-                    </div>
-                    <div class="input">
-                        <label for="join-name">full name</label>
-                        <input id="join-name" type="text" name="name" required>
-                    </div>
-                    <div class="input">
-                        <label for="join-phone">phone number</label>
-                        <input id="join-phone" type="number" name="phoneNumber" required>
-                    </div>
-                    <button class="join-btn" type="submit">join</button>
-                </form>
-            </div>
-{% endblock %}
+<form
+  class="join form"
+  action="/auth/join"
+  method="POST"
+  onclick="stopPropagation(event)"
+>
+  <div class="input">
+    <label for="join-email">E-Mail</label>
+    <input id="join-email" type="text" name="email" required autofocus />
+  </div>
+  <div class="input">
+    <label for="join-password">Password</label>
+    <input id="join-password" type="password" name="password" required />
+  </div>
+  <div class="input">
+    <label for="join-password-check">Password Check</label>
+    <input
+      id="join-password-check"
+      type="password"
+      name="passwordCheck"
+      required
+    />
+  </div>
+  <div class="input">
+    <label for="join-name">Name</label>
+    <input id="join-name" type="text" name="name" required />
+  </div>
+  <div class="input">
+    <label for="join-phone">Phone number</label>
+    <input id="join-phone" type="text" name="phone" required />
+  </div>
+  <div class="input">
+    <label for="join-nick">Nick name</label>
+    <input id="join-nick" type="text" name="nick" required />
+  </div>
+  <button class="join btn" onclick="checkPassword(event)">
+    <img src="/imgs/svg/065-group.svg" alt="" />
+  </button>
+</form>

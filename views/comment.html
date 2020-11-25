@@ -1,0 +1,48 @@
+{% if user.Purchases.length %} {% for purchase in user.Purchases %} {% if
+purchase.SaleId === product.id and purchase.CommentId === 0 %}
+<form class="comment form" action="/comment/add/{{product.id}}" method="post">
+  <input
+    type="text"
+    name="purchaseId"
+    value="{{purchase.id}}"
+    style="display: none"
+  />
+  <div class="input">
+    <label for="comment-content">후기</label>
+    <input id="comment-content" type="text" name="content" />
+  </div>
+  <div class="input">
+    <label for="comment-score">점수</label>
+    <input id="comment-score" type="number" min="0" max="5" name="score" />
+    <span>점</span>
+  </div>
+  <div>
+    <button class="btn" type="submit">등록</button>
+  </div>
+</form>
+{% endif %} {% endfor %} {% endif %}
+<div class="comment-list">
+  {% for comment in product.Comments %}
+  <div id="{{comment.User.name}}-{{comment.createdAt}}" class="comment">
+    <div class="basic-information">
+      <div class="comment-user-name">{{comment.userName}}</div>
+      <div class="comment-score">{{comment.score}}점</div>
+    </div>
+    <div class="comment-content">{{comment.content}}</div>
+    <script>
+      document
+        .getElementById("{{comment.User.name}}-{{comment.createdAt}}")
+        .getElementsByClassName(
+          "comment-content"
+        )[0].innerHTML = document
+        .getElementById("{{comment.User.name}}-{{comment.createdAt}}")
+        .getElementsByClassName("comment-content")[0].textContent;
+    </script>
+    {% if user and user.id and user.id === comment.UserId %}
+    <form action="/comment/del/{{comment.id}}">
+      <button class="btn" type="submit">x</button>
+    </form>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>

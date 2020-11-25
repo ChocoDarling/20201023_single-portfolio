@@ -1,62 +1,33 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block wrap %}
+<div id="main-information">
+  <div class="user-image">
+    <div>{{user.score / 100}} 점</div>
+  </div>
+  <div id="{{user.id}}" class="user-information">
+    <div class="nickname">
+      <h1>{{user.nick}}</h1>
+      <button onclick="onTextChange('nickname', true)">닉네임 수정</button>
+    </div>
+    <form class="nickname-change" action="/auth/change" method="post">
+      <input type="text" />
+      <button onclick="onTextChange('nickname', false)">확인</button>
+    </form>
+    <div class="math-information">
+      <p>이름 : <span class="user-name">{{user.name}}</span></p>
+      <p>전화번호 : <span class="user-phone">{{user.phone}}</span></p>
+      <p>가입일 : <span class="date-join">{{user.createdAt}}</span></p>
+      <p>방문자수 : <span class="count-visitor">0</span> 명</p>
+      <p>판매수 : <span class="count-sale">0</span> 회</p>
+      <p>택배발송 : <span class="count-transport">0</span> 회</p>
+    </div>
+  </div>
+</div>
+<div class="data-list">
+  <div class="user-sale on" onclick="onDataListClick(event)">판매 상품</div>
+  <div class="user-purchase" onclick="onDataListClick(event)">구매 상품</div>
+  <div class="user-comment" onclick="onDataListClick(event)">구매 후기</div>
+</div>
+<div class="data-input"></div>
 
-{% block content %}
-            <div id="full-contain">
-                <div id="main-information">
-                    <div>email : {{user.email}}</div>
-                    <div>nick : {{user.nick}}</div>
-                    <div>name : {{user.name}}</div>
-                    <div>phoneNumber : {{user.phoneNumber}}</div>
-                    <div>score : {{user.score / 100}}</div>{% if user.Sales %}
-                    <div>income : {{user.SalesFull}}</div>{% endif %}{% if user.Purchases %}
-                    <div>outcome : {{user.PurchasesFull}}</div>{% endif %}
-                </div>{% if user.Sales.length %}
-                <fieldset id="sale-list">
-                    <legend>Sales</legend>{% for sale in user.Sales %}
-                    <div id="{{sale.name}}-{{sale.createdAt}}" class="sale">
-                        <a href="/product/{{sale.id}}">
-                            <div class="sale-name">Name : {{sale.name}}</div>
-                            <div class="sale-count">Remaining Count : {{sale.count - sale.saleCount}}</div>
-                            <div class="sale-count">Number of Saled : {{sale.saleCount}}</div>
-                            <div class="sale-price">Price : {{sale.price}}</div>
-                            <div class="sale-information">Information : {{sale.information}}</div>
-                            <form action="/sale/del/{{sale.id}}">
-                                <button type="submit">x</button>
-                            </form>
-                        </a>
-                        <script>
-                            document
-                                .getElementById('{{sale.name}}-{{sale.createdAt}}')
-                                .getElementsByClassName('sale-information')[0]
-                                .innerHTML = 
-                                document
-                                    .getElementById('{{sale.name}}-{{sale.createdAt}}')
-                                    .getElementsByClassName('sale-information')[0]
-                                    .textContent;
-                        </script>
-                    </div>{% endfor %}
-                </fieldset>{% endif %}{% if user.Purchases.length %}
-                <fieldset  id="purchase-list">
-                    <legend>Purchases</legend>{% for purchase in user.Purchases %}
-                    <div id="{{purchase.Sale.name}}-{{purchase.createdAt}}" class="purchase">
-                        <a href="/product/{{purchase.SaleId}}">
-                            <div class="purchase-name">Name : {{purchase.Sale.name}}</div>
-                            <div class="purchase-count">Number : {{purchase.count}}</div>
-                            <div class="purchase-price">Price : {{purchase.price}}</div>
-                            <form action="/purchase/del/{{purchase.id}}">
-                                <button type="submit">x</button>
-                            </form>{% for comment in user.Comments %}{% if comment.SaleId === purchase.SaleId %}
-                            <fieldset class="profile-comment">
-                                <legend>Comment</legend>
-                                <div class="comment-score">{{comment.score}}</div>
-                                <div class="comment-content">{{comment.content}}</div>
-                                <form action="/comment/del/{{comment.id}}">
-                                    <button type="submit">x</button>
-                                </form>
-                            </fieldset>
-                            {% endif %}{% endfor %}
-                        </a>
-                    </div>{% endfor %}
-                </fieldset>{% endif %}
-            </div>
+<script></script>
 {% endblock %}

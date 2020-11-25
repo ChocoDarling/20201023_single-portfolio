@@ -1,35 +1,29 @@
-{% extends "layout.html" %}
-
-{% block content %}
-            <div id="advertise">
-                <div id="advertise-list">{% for advertise in advertiseList %}
-                    <a class="advertise" href={{advertise.href}}>
-                        <img src={{advertise.img}} alt="">
-                    </a>{% endfor %}
-                </div>
-                <div class="input">
-                    <div id="advertise-before">
-                        <a href=""><img src="/imgs/svg/010-left-arrow.svg" alt=""></a>
-                    </div>
-                    <div id="advertise-after">
-                        <a href=""><img src="/imgs/svg/023-right-arrow.svg" alt=""></a>
-                    </div>
-                </div>
-            </div>
-            <div id="inner-contain">
-                <div id="products-list">{% for sale in Sales %}
-                    <a href="/product/{{sale.id}}" id="{{sale.name}}" class="sale">
-                        <div class="sale-name">Name : {{sale.name}}</div>
-                        <div class="sale-count">Number : {{sale.count - sale.saleCount}}</div>
-                        <div class="sale-price">Price : {{sale.price}}</div>
-                    </a>{% endfor %}
-                </div>
-            </div>
-            <script>
-                [...document
-                    .getElementsByClassName('sale-information')]
-                    .forEach(e => {
-                        e.innerHTML = e.textContent;
-                    });
-            </script>
+{% extends "layout.html" %} {% block wrap %}
+<div class="banner">
+  <div class="banner btn left"></div>
+  <div class="inner-banner"></div>
+  <div class="banner btn right"></div>
+</div>
+<div id="item-list">
+  <div id="last-item-list">
+    <h2>최근 상품 목록</h2>
+  </div>
+  <div id="popular-item-list">
+    <h2>인기 상품 목록</h2>
+  </div>
+</div>
+<div id="hashtag-list">
+  {% for hashtagList in hashtagLists %}
+  <fieldset>
+    <legend>{{hashtagList.name}}</legend>
+    {% for hashtag in hashtagList.list %}
+    <div class="hashtag" onclick="clickHashtag(event, '{{hashtag.name}}')">
+      <div class="hashtag-icon">#</div>
+      <div class="hashtag-name">{{hashtag.name.slice(1)}}</div>
+    </div>
+    {% endfor %}
+  </fieldset>
+  {% endfor %}
+</div>
+<div id="hashtag-items"></div>
 {% endblock %}

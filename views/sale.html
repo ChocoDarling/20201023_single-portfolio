@@ -1,33 +1,49 @@
-{% extends "layout.html" %}
-
-{% block content %}
-            <div id="full-contain">
-                <form id="sale-box" action="/sale/add" method="POST" onsubmit="onSubmit(event)">
-                    <div class="input">
-                        <label for="sale-name">name</label>
-                        <input id="sale-name" type="text" name="name" required>
-                    </div>
-                    <div class="input">
-                        <label for="sale-count">count</label>
-                        <input id="sale-count" min="0" max="10000000" type="number" name="count" required>
-                    </div>
-                    <div class="input">
-                        <label for="sale-price">price</label>
-                        <input id="sale-price" min="0" max="10000000" type="number" name="price" required>
-                    </div>
-                    <div 
-                        id="sale-information" 
-                        class="textarea information" 
-                        contenteditable="true" 
-                        onfocus="isDivEmpty()"
-                        oninput="isDivEmpty()"
-                        onblur="isblur()"
-                        required
-                    ></div>
-                    <input type="text" id="sale-hashtag" name="hashtags">
-                    <div>
-                        <button type="submit">sale product</button>
-                    </div>
-                </form>
-            </div>
+{% extends "layout.html" %} {% block wrap %}
+<form id="sale-box" action="/sale/add" method="POST" onsubmit="onSubmit(event)">
+  <div class="input sale-name">
+    <label for="sale-name">제목</label>
+    <input id="sale-name" type="text" name="name" required />
+  </div>
+  <div>
+    <div class="input sale-count">
+      <label for="sale-count">수량</label>
+      <input
+        id="sale-count"
+        min="1"
+        max="10000000"
+        type="number"
+        name="count"
+        value="1"
+        required
+      />
+      개
+    </div>
+    <div class="input">
+      <label for="sale-price">가격</label>
+      <input
+        id="sale-price"
+        min="1000"
+        max="10000000"
+        type="number"
+        name="price"
+        value="1000"
+        required
+      />
+      원
+    </div>
+  </div>
+  <div
+    id="sale-information"
+    class="textarea information"
+    contenteditable="true"
+    onfocus="isDivEmpty()"
+    oninput="isDivEmpty()"
+    onblur="isblur()"
+    required
+  ></div>
+  <input type="text" id="sale-hashtag" name="hashtags" />
+  <div>
+    <button class="btn" type="submit">판매 등록</button>
+  </div>
+</form>
 {% endblock %}

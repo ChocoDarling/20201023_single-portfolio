@@ -1,0 +1,66 @@
+<div id="header">
+  <a id="logo" href="/">
+    <img class="windows" src="/imgs/logo.png" alt="" />
+  </a>
+  <div class="hashtags"></div>
+  <div>
+    {% if user %}
+    <a href="/sale">
+      <div class="login btn">
+        <img src="/imgs/svg/113-add.svg" alt="" />
+      </div>
+    </a>
+    <a href="/profile">
+      <div class="join btn">
+        <img src="/imgs/svg/031-user-1.svg" alt="" />
+      </div>
+    </a>
+    <a href="/auth/logout">
+      <div class="login btn">
+        <img src="/imgs/svg/080-logout.svg" alt="" />
+      </div>
+    </a>
+    {% else %}
+    <div class="join btn" onclick="isBox(event, true)">
+      <img src="/imgs/svg/065-group.svg" alt="" />
+    </div>
+    <div class="login btn" onclick="isBox(event, true)">
+      <img src="/imgs/svg/079-login.svg" alt="" />
+    </div>
+    {% endif %}
+  </div>
+</div>
+<div id="header-box">
+  <div
+    class="login box"
+    onclick="isBox(event, false)"
+    onmousewheel="preventDefault(event)"
+  >
+    <form
+      class="login form"
+      action="/auth/login"
+      method="POST"
+      onclick="stopPropagation(event)"
+    >
+      <div class="input">
+        <label for="login-email">E-Mail</label>
+        <input id="login-email" type="text" name="email" required autofocus />
+      </div>
+      <div class="input">
+        <label for="login-pwd">Password</label>
+        <input id="login-pwd" type="password" name="password" required />
+      </div>
+      <button class="login btn">
+        <img src="/imgs/svg/079-login.svg" alt="" />
+      </button>
+    </form>
+  </div>
+  <div
+    class="join box"
+    onclick="isBox(event, false)"
+    onmousewheel="preventDefault(event)"
+  >
+    {% include "join.html" %}
+  </div>
+</div>
+<div onload="checkErrorMessage()"></div>
