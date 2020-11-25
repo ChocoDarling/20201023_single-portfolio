@@ -271,7 +271,6 @@ function setImgs(imgArr) {
 }
 
 function onSubmit(e) {
-  checkHashtag(e);
   const datas = document.getElementById("sale-information");
   const imgs = datas.getElementsByTagName("img");
   const imgDatas = getImgs(imgs);
@@ -287,6 +286,7 @@ function onSubmit(e) {
       }
     });
   });
+  checkHashtag(e);
   tempInput.style.display = "none";
   tempInput.name = "information";
   tempInput.value = datas.innerHTML;
