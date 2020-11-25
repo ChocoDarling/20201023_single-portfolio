@@ -16,12 +16,14 @@
   {% for hashtagList in hashtagLists %}
   <fieldset>
     <legend>{{hashtagList.name}}</legend>
-    {% for hashtag in hashtagList.list %}
-    <div class="hashtag" onclick="clickHashtag(event, '{{hashtag.name}}')">
-      <div class="hashtag-icon">#</div>
-      <div class="hashtag-name">{{hashtag.name.slice(1)}}</div>
+    <div>
+      {% for hashtag in hashtagList.list %}
+      <div class="hashtag" onclick="clickHashtag(event, '{{hashtag.name}}')">
+        <div class="hashtag-icon">#</div>
+        <div class="hashtag-name">{{hashtag.name.slice(1)}}</div>
+      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
   </fieldset>
   {% endfor %}
 </div>
