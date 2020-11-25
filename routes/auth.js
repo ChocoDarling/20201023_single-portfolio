@@ -12,7 +12,10 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
     const exUser = await User.findOne({ where: { email } });
     if (exUser)
       return res.redirect("/?err&message=이미 존제하는 아이디입니다.");
+    if (await User.findOne({ where: { nick } }))
+      return res.redirect("/?err&message=이미 존제하는 닉네임입니다.");
     const hash = await bcrypt.hash(password, 12); // 암호화 / 31까지 사용할 수 있으며 12 이상을 권장. promise 지원
+    console.log(hash);
     await User.create({
       email,
       password: hash,
