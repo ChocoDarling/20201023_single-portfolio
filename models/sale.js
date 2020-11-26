@@ -7,7 +7,7 @@ module.exports = class Sale extends (
     return super.init(
       {
         name: {
-          type: Sequelize.STRING(40),
+          type: Sequelize.STRING(100),
           allowNull: false,
         },
         count: {
