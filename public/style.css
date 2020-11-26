@@ -41,7 +41,7 @@ a {
 }
 #header .btn {
   float: left;
-  height: 50px;
+  height: 30px;
   margin-left: 20px;
 }
 #header .btn > img {
@@ -50,7 +50,7 @@ a {
 }
 #header .btn > span {
   position: relative;
-  bottom: 5px;
+  bottom: 10px;
 }
 .box {
   z-index: 2000;
