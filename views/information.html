@@ -1,0 +1,75 @@
+{% extends "layout.html" %} {% block wrap %}
+<link rel="stylesheet" href="information.css" />
+<div id="homepage-info" onclick="whereClick(event)">
+  <div>
+    <img src="/imgs/information/main.jpg" alt="" />
+    <div id="main-hashtag">
+      <span>
+        해시태그는 최신 등록된 순서대로 나열됩니다. </br>
+        해시태그를 클릭하면 아래에 검색된 상품을 나열합니다.
+      </span>
+    </div>
+  </div>
+  <div>
+    <img src="/imgs/information/make-sale.jpg" alt="" />
+    <div id="sale-text">
+      <span>
+        상품등록 시 사진을 복사하여 붙여넣을 수 있으며 첫 사진을 메인사진으로 사용합니다.</br>
+        인터넷에서 복사한 사진 또한 가능하며 base64 포멧으로 된 사진은 서버에 저장합니다</br>
+        '#해시태그' 형식을 입력하면 자동으로 해시태그로 저장하며 검색에 사용됩니다.
+      </span>
+    </div>
+  </div>
+  <div>
+    <img src="/imgs/information/saler-product.jpg" alt="" />
+    <div id="saler-product-hashtag">
+      <span>
+        해시태그를 클릭하면 홈페이지로 돌아가며 해시태그를 검색합니다.
+      </span>
+    </div>
+    <div id="saler-product">
+      <span>
+        판매자는 남은 수량으로 나옵니다.
+      </span>
+    </div>
+  </div>
+  <div>
+    <img src="/imgs/information/make-comment.jpg" alt="" />
+    <div id="make-comment">
+      <span>
+        구매를 확인 후 후기를 적을 수 있으며 구매 횟수만큼 후기를 적을 수 있습니다.
+      </span>
+    </div>
+  </div>
+  <div>
+    <img src="/imgs/information/purchaselist.jpg" alt="" />
+    <div id="purchaselist">
+      <span>
+        axios를 이용하여 서버로부터 정보를 받아 출력합니다.
+      </span>
+    </div>
+  </div>
+</div>
+
+<div id="whereClick"></div>
+<script>
+  function whereClick(e) {
+    console.log(e);
+    document.getElementById("whereClick").innerHTML = `${e.layerY} / ${e.layerX}`;
+  }
+
+  
+  // <div>
+  //   <img src="/imgs/information/make-sale.jpg" alt="" />
+  //   <div id="sale-text">
+  //     <span>
+  //       상품등록 시 사진을 복사하여 붙여넣을 수 있으며 첫 사진을 메인사진으로 사용합니다.</br>
+  //       인터넷에서 복사한 사진 또한 가능하며 base64 포멧으로 된 사진은 서버에 저장합니다</br>
+  //       '#해시태그' 형식을 입력하면 자동으로 해시태그로 저장하며 검색에 사용됩니다.
+  //     </span>
+  //   </div>
+  // </div>
+
+
+</script>
+{% endblock %}

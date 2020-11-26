@@ -1,0 +1,57 @@
+span {
+  font-size: 20px;
+  line-height: 30px;
+}
+#whereClick {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+#homepage-info {
+  width: 100%;
+}
+#homepage-info > div {
+  position: relative;
+  width: 100%;
+}
+#homepage-info > div > div {
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  padding: 5px;
+  background: white;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+#homepage-info > div > img {
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+#main-hashtag {
+  top: 1215px;
+  left: 250px;
+}
+#sale-text {
+  top: 312px;
+  left: 73px;
+}
+#saler-product-hashtag {
+  top: 85px;
+  left: 290px;
+}
+#saler-product {
+  top: 435px;
+  left: 450px;
+}
+#make-comment {
+  top: 785px;
+  left: 100px;
+}
+#purchaselist {
+  top: 700px;
+  left: 35px;
+}

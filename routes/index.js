@@ -50,6 +50,10 @@ router.get("/join", isNotLoggedIn, (req, res) => {
   res.render("join");
 });
 
+router.get("/information", isNotLoggedIn, (req, res) => {
+  res.render("information");
+});
+
 router.get("/profile", isLoggedIn, async (req, res) => {
   res.locals.user.Sales = await res.locals.user.getSales();
   res.locals.user.SalesFull = 0;
