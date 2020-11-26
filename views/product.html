@@ -1,5 +1,12 @@
 {% extends "layout.html" %} {% block wrap %}
-<div class="hashtag-list"></div>
+<div class="hashtag-list">
+  {% for hashtag in product.hashtags %}
+  <div class="hashtag" onclick="goMainOfHashtag('{{hashtag.name}}')">
+    <div class="hashtag-icon">#</div>
+    <div class="hashtag-name">{{hashtag.name.slice(1)}}</div>
+  </div>
+  {% endfor %}
+</div>
 <div class="item-information">
   <div class="item-image"></div>
   <div class="text-information">
@@ -59,5 +66,18 @@
   ).innerHTML = document.querySelector(
     ".product-data.product-information"
   ).textContent;
+
+  function goMainOfHashtag(hashtag) {
+    const formData = document.createElement("form");
+    formData.style.display = "none";
+    formData.method = "POST";
+    formData.action = "/";
+    const tempInputSearch = document.createElement("input");
+    tempInputSearch.value = hashtag;
+    tempInputSearch.name = "searchKey";
+    formData.appendChild(tempInputSearch);
+    document.body.appendChild(formData);
+    formData.submit();
+  }
 </script>
 {% endblock %}

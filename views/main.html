@@ -27,5 +27,15 @@
   </fieldset>
   {% endfor %}
 </div>
-<div id="hashtag-items"></div>
+<div id="hashtag-items">
+  {% for sale in Sales %}
+  <div class="item-list">
+    <a href="/product{{sale.id}}" class="item-list">
+      <div class="item-img">{{sale.mainImg}}</div>
+      <div class="item-name">{{sale.name}}</div>
+      <div class="item-price">{{sale.price}}<span></span> 원</div>
+    </a>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

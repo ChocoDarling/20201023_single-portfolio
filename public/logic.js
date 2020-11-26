@@ -148,7 +148,7 @@ async function clickHashtag(e, searchKey) {
   try {
     const parentElem = document.getElementById("hashtag-items");
     const sales = (
-      await axios.post("/", {
+      await axios.post("/hashtag", {
         searchKey,
       })
     ).data;

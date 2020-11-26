@@ -22,7 +22,7 @@ router.use(async (req, res, next) => {
 
 router
   .route("/")
-  .get(async (req, res) => {
+  .get((req, res) => {
     res.render("main", {
       title: "테스트",
     });
@@ -32,9 +32,19 @@ router
       where: { name: req.body.searchKey },
     });
     const Sales = await hashtag.getSales();
-    console.log(Sales);
-    res.send(Sales);
+    res.render("main", {
+      Sales,
+    });
   });
+
+router.post("/hashtag", async (req, res) => {
+  const hashtag = await Hashtag.findOne({
+    where: { name: req.body.searchKey },
+  });
+  const Sales = await hashtag.getSales();
+  console.log(Sales);
+  res.send(Sales);
+});
 
 router.get("/join", isNotLoggedIn, (req, res) => {
   res.render("join");
@@ -97,6 +107,7 @@ router.get("/product/:id", async (req, res) => {
   const product = await Sale.findOne({ where: { id: req.params.id } });
   product.Comments = await product.getComments();
   product.saleUser = await User.findOne({ where: { id: product.UserId } });
+  product.hashtags = await product.getHashtags();
   if (res.locals.user) {
     res.locals.user.Purchases = await res.locals.user.getPurchases();
   }
