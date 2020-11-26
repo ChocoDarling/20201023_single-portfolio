@@ -6,26 +6,31 @@
   <div>
     {% if user %}
     <a href="/sale">
-      <div class="login btn">
+      <div class="top btn">
         <img src="/imgs/svg/113-add.svg" alt="" />
+        <span>판매등록</span>
       </div>
     </a>
     <a href="/profile">
-      <div class="join btn">
+      <div class="top btn">
         <img src="/imgs/svg/031-user-1.svg" alt="" />
+        <span>회원정보</span>
       </div>
     </a>
     <a href="/auth/logout">
-      <div class="login btn">
+      <div class="top btn">
         <img src="/imgs/svg/080-logout.svg" alt="" />
+        <span>로그아웃</span>
       </div>
     </a>
     {% else %}
     <div class="join btn" onclick="isBox(event, true)">
       <img src="/imgs/svg/065-group.svg" alt="" />
+      <span>회원가입</span>
     </div>
     <div class="login btn" onclick="isBox(event, true)">
       <img src="/imgs/svg/079-login.svg" alt="" />
+      <span>로그인</span>
     </div>
     {% endif %}
   </div>
@@ -63,4 +68,3 @@
     {% include "join.html" %}
   </div>
 </div>
-<div onload="checkErrorMessage()"></div>

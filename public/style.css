@@ -39,17 +39,18 @@ a {
 #header #logo img {
   width: 100px;
 }
-#header .login.btn {
+#header .btn {
   float: left;
-  width: 50px;
   height: 50px;
   margin-left: 20px;
 }
-#header .join.btn {
-  float: left;
-  height: 50px;
-  width: 50px;
-  margin-left: 20px;
+#header .btn > img {
+  height: 100%;
+  width: auto;
+}
+#header .btn > span {
+  position: relative;
+  bottom: 5px;
 }
 .box {
   z-index: 2000;

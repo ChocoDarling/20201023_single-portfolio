@@ -8,11 +8,11 @@ function errorCheck() {
 
 function isBox(e, isOn) {
   e.stopPropagation();
-  //   e.preventDefault();
+  let tempElem = e.target.parentElement;
+  if (e.target.tagName === "DIV") tempElem = e.target;
   if (isOn) {
-    document.querySelector(
-      `.${e.target.parentElement.classList[0]}.box`
-    ).style.display = "flex";
+    document.querySelector(`.${tempElem.classList[0]}.box`).style.display =
+      "flex";
   } else {
     document
       .querySelectorAll(`.box`)
