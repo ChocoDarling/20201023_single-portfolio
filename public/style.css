@@ -159,6 +159,11 @@ div.item-list > a {
   background-position: center;
   background-size: cover;
 }
+.item-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 #main-information {
   display: flex;
   margin-top: 20px;

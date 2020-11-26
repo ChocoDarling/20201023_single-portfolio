@@ -294,7 +294,7 @@ function onSubmit(e) {
   tempImg.name = "mainImg";
   tempImg.value = "";
   if (imgs.length) {
-    tempImg.value = datas.getElementsByTagName("img")[0].getAttribute("src");
+    tempImg.value = imgs[0].getAttribute("src");
   }
   formData.appendChild(tempInput);
   formData.appendChild(tempImg);
